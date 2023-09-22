@@ -28,7 +28,7 @@ We can install the master branch using the following commands:
 This repository is made of several separate npm modules, that are installable separately. For example, to run the au-input module, we can do the following:
     
     cd angular-testing-course
-    npm install
+    npm ci
 
 Its also possible to install the modules as usual using npm:
 
@@ -146,4 +146,3 @@ If you are looking for the Complete Typescript 2 Course - Build a REST API, the 
 [Github repo for this course](https://github.com/angular-university/complete-typescript-course)
 
 ![Complete Typescript Course](https://angular-academy.s3.amazonaws.com/thumbnails/typescript-2-small.png)
-
