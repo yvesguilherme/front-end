@@ -3,7 +3,7 @@ import { DebugElement } from '@angular/core';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
-import { of } from 'rxjs';
+import { asyncScheduler, of, scheduled } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 import { CoursesModule } from '../courses.module';
@@ -17,6 +17,9 @@ describe('HomeComponent', () => {
   let fixture: ComponentFixture<HomeComponent>;
   let component: HomeComponent;
   let debugElement: DebugElement;
+  let courseService: any;
+
+  const beginnerCourses = setupCourses().filter(course => course.category === 'BEGINNER');
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -36,6 +39,7 @@ describe('HomeComponent', () => {
         fixture = TestBed.createComponent(HomeComponent);
         component = fixture.componentInstance;
         debugElement = fixture.debugElement;
+        courseService = TestBed.inject(CoursesService);
       });
   }));
 
@@ -45,9 +49,16 @@ describe('HomeComponent', () => {
 
 
   it("should display only beginner courses", () => {
+    courseService
+      .findAllCourses
+      .and
+      .returnValue(of(beginnerCourses));
 
-    pending();
+    fixture.detectChanges();
 
+    const materialTab = debugElement.queryAll(By.css('.mdc-tab'));
+
+    expect(materialTab.length).toBe(1, 'Unexpected number of tabs found');
   });
 
 
