@@ -1,17 +1,18 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
 
 import { CoursesCardListComponent } from './courses-card-list.component';
 import { CoursesModule } from '../courses.module';
+import { setupCourses } from '../common/setup-test-data';
 import { COURSES } from '../../../../server/db-data';
-import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
 import { sortCoursesBySeqNo } from '../home/sort-course-by-seq';
 import { Course } from '../model/course';
-import { setupCourses } from '../common/setup-test-data';
 
 describe('CoursesCardListComponent', () => {
   let component: CoursesCardListComponent;
   let fixture: ComponentFixture<CoursesCardListComponent>;
+  let debugElement: DebugElement;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -23,6 +24,7 @@ describe('CoursesCardListComponent', () => {
       .then(() => {
         fixture = TestBed.createComponent(CoursesCardListComponent);
         component = fixture.componentInstance;
+        debugElement = fixture.debugElement;
       });
   }));
 
@@ -32,9 +34,13 @@ describe('CoursesCardListComponent', () => {
 
 
   it("should display the course list", () => {
+    component.courses = setupCourses();
+    fixture.detectChanges();
 
-    pending();
+    const listCards = debugElement.queryAll(By.css('.course-card'));
 
+    expect(listCards).toBeTruthy('Could not find cards');
+    expect(listCards.length).toBe(12, 'Unexpected number of courses');
   });
 
 
