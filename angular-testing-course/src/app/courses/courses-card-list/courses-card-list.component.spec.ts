@@ -52,8 +52,7 @@ describe('CoursesCardListComponent', () => {
 
     const firstCourse = component.courses[0];
     
-    console.log(debugElement.nativeElement.outerHTML);
-    
+    // console.log(debugElement.nativeElement.outerHTML);
     
     const materialCard = debugElement.query(By.css('.course-card:first-child'));
     const materialTitle = materialCard.query(By.css('.mat-mdc-card-title'));
