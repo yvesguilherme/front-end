@@ -91,7 +91,7 @@ describe('HomeComponent', () => {
   });
 
 
-  it("should display advanced courses when tab clicked", () => {
+  it("should display advanced courses when tab clicked", (done: DoneFn) => {
     courseService
       .findAllCourses
       .and
@@ -105,10 +105,19 @@ describe('HomeComponent', () => {
 
     fixture.detectChanges();
 
-    const materialTitle = debugElement.queryAll(By.css('.mat-mdc-card-title'));
+    setTimeout(() => {
+      fixture.detectChanges();
+      
+      const materialTitle = debugElement.queryAll(By.css('.mat-mdc-card-title'));
+      
+      console.log(materialTitle);
+  
+      expect(materialTab.length).toBeGreaterThan(0, 'Could not find card titles');
+      expect(materialTitle[0].nativeElement.textContent).toContain('Angular Security Course');
 
-    expect(materialTab.length).toBeGreaterThan(0, 'Could not find card titles');
-    expect(materialTitle[0].nativeElement.textContent).toContain('Angular Security Course');
+      done();
+    }, 500);
+
   });
 
 });
