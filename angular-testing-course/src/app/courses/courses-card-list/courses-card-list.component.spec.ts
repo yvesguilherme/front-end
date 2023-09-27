@@ -47,9 +47,21 @@ describe('CoursesCardListComponent', () => {
 
 
   it("should display the first course", () => {
+    component.courses = setupCourses();
+    fixture.detectChanges();
 
-    pending();
+    const firstCourse = component.courses[0];
+    
+    console.log(debugElement.nativeElement.outerHTML);
+    
+    
+    const materialCard = debugElement.query(By.css('.course-card:first-child'));
+    const materialTitle = materialCard.query(By.css('.mat-mdc-card-title'));
+    const materialImage = materialCard.query(By.css('img'));
 
+    expect(materialCard).toBeTruthy('Could not find course card');
+    expect(materialTitle.nativeElement.textContent).toBe(firstCourse.titles.description);
+    expect(materialImage.nativeElement.src).toBe(firstCourse.iconUrl);
   });
 
 
