@@ -20,6 +20,7 @@ describe('HomeComponent', () => {
   let courseService: any;
 
   const beginnerCourses = setupCourses().filter(course => course.category === 'BEGINNER');
+  const advancedCourses = setupCourses().filter(course => course.category === 'ADVANCED');
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -63,16 +64,30 @@ describe('HomeComponent', () => {
 
 
   it("should display only advanced courses", () => {
+    courseService
+      .findAllCourses
+      .and
+      .returnValue(of(advancedCourses));
 
-    pending();
+    fixture.detectChanges()
 
+    const materialTab = debugElement.queryAll(By.css('.mdc-tab'));
+
+    expect(materialTab.length).toBe(1, 'Unexpected number of tabs found');
   });
 
 
   it("should display both tabs", () => {
+    courseService
+      .findAllCourses
+      .and
+      .returnValue(of(setupCourses()));
+    
+    fixture.detectChanges();
 
-    pending();
+    const materialTab = debugElement.queryAll(By.css('.mdc-tab'));
 
+    expect(materialTab.length).toBe(2, 'Unexpected number of tabs found');
   });
 
 
