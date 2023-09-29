@@ -110,7 +110,7 @@ describe('HomeComponent', () => {
       
       const materialTitle = debugElement.queryAll(By.css('.mat-mdc-card-title'));
       
-      console.log(materialTitle);
+      // console.log(materialTitle);
   
       expect(materialTab.length).toBeGreaterThan(0, 'Could not find card titles');
       expect(materialTitle[0].nativeElement.textContent).toContain('Angular Security Course');
