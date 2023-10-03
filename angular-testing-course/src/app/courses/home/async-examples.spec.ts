@@ -53,14 +53,14 @@ fdescribe('Async Testing Examples', () => {
 
   }));
 
-  fit('Asynchronous test example - plain Promise', fakeAsync(() => {
+  it('Asynchronous test example - plain Promise', fakeAsync(() => {
     console.log('Creating promise...');
 
     Promise
       .resolve()
       .then(() => {
         console.log('Promise first then() evaluated successfully...');
-      
+
         // test = true;
 
         return Promise.resolve();
@@ -70,11 +70,36 @@ fdescribe('Async Testing Examples', () => {
 
         test = true;
       });
-    
+
     flushMicrotasks();
-    
+
     console.log('Running test assertions...');
 
     expect(test).toBeTruthy();
+  }));
+
+  it('Asynchronous test example - Promises + setTimeout()', fakeAsync(() => {
+    let counter = 0;
+
+    Promise.resolve()
+      .then(() => {
+        counter += 10;
+
+        setTimeout(() => counter++, 1000);
+      });
+    
+    expect(counter).toBe(0);
+
+    flushMicrotasks();
+
+    expect(counter).toBe(10);
+
+    tick(500);
+
+    expect(counter).toBe(10);
+
+    tick(500);
+
+    expect(counter).toBe(11);
   }));
 });
