@@ -2,7 +2,7 @@ import { fakeAsync, flush, flushMicrotasks, tick } from "@angular/core/testing";
 import { of, timer } from "rxjs";
 import { delay } from "rxjs/operators";
 
-fdescribe('Async Testing Examples', () => {
+describe('Async Testing Examples', () => {
 
   let test: boolean;
 
