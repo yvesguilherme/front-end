@@ -104,7 +104,7 @@ fdescribe('Async Testing Examples', () => {
     expect(counter).toBe(11);
   }));
 
-  fit('Asynchronous test example - Observables', fakeAsync(() => {
+  it('Asynchronous test example - Observables', fakeAsync(() => {
     console.log(`Creating Observable...`);
 
     const test$ = of(test)
