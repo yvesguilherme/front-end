@@ -32,7 +32,7 @@
             "namedChunks": true
           },
           "configurations": {
-            "production": {
+            "prod": {
               "budgets": [
                 {
                   "type": "anyComponentStyle",

@@ -12,10 +12,11 @@
     "lint": "ng lint",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "build:prod": "ng build --prod",
-    "start:prod": "http-server ./dist -a localhost -p 4200",
-    "build-and-start:prod": "run-s build:prod start:prod",
-    "e2e": "start-server-and-test build-and-start:prod http://localhost:4200 cypress:run"
+    "build:prod": "ng build -c=prod",
+    "start:prod": "npx http-server ./dist -a localhost -p 4200",
+    "build-and-start:prod": "run -s build:prod start:prod",
+    "e2e": "start-server-and-test build-and-start:prod http://localhost:4200 cypress:run",
+    "http-server": "cd 'coverage/Firefox 102.0 (Ubuntu 0.0.0)' && npx http-server -c-1 ."
   },
   "private": true,
   "dependencies": {
