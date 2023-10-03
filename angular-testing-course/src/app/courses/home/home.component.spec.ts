@@ -1,4 +1,4 @@
-import { ComponentFixture, fakeAsync, flush, flushMicrotasks, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, flushMicrotasks, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,7 +13,7 @@ import { COURSES } from '../../../../server/db-data';
 import { setupCourses } from '../common/setup-test-data';
 import { click } from '../common/test-utils';
 
-describe('HomeComponent', () => {
+fdescribe('HomeComponent', () => {
   let fixture: ComponentFixture<HomeComponent>;
   let component: HomeComponent;
   let debugElement: DebugElement;
@@ -82,7 +82,7 @@ describe('HomeComponent', () => {
       .findAllCourses
       .and
       .returnValue(of(setupCourses()));
-    
+
     fixture.detectChanges();
 
     const materialTab = debugElement.queryAll(By.css('.mdc-tab'));
@@ -91,12 +91,12 @@ describe('HomeComponent', () => {
   });
 
 
-  it("should display advanced courses when tab clicked", (done: DoneFn) => {
+  fit("should display advanced courses when tab clicked", fakeAsync(() => {
     courseService
       .findAllCourses
       .and
       .returnValue(of(setupCourses()));
-    
+
     fixture.detectChanges();
 
     const materialTab = debugElement.queryAll(By.css('.mdc-tab'));
@@ -105,19 +105,15 @@ describe('HomeComponent', () => {
 
     fixture.detectChanges();
 
-    setTimeout(() => {
-      fixture.detectChanges();
-      
-      const materialTitle = debugElement.queryAll(By.css('.mat-mdc-card-title'));
-      
-      // console.log(materialTitle);
-  
-      expect(materialTab.length).toBeGreaterThan(0, 'Could not find card titles');
-      expect(materialTitle[0].nativeElement.textContent).toContain('Angular Security Course');
+    // tick(16);
+    flush();
 
-      done();
-    }, 500);
+    const materialTitle = debugElement.queryAll(By.css('.mat-mdc-tab-body-active'));
 
-  });
+    // console.log(materialTitle);
+
+    expect(materialTab.length).toBeGreaterThan(0, 'Could not find card titles');
+    expect(materialTitle[0].nativeElement.textContent).toContain('Angular Security Course');
+  }));
 
 });
