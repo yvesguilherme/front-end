@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
     const courses$ = this.coursesService.loadAllCourses()
       .pipe(
         map(courses => courses.sort(sortCoursesBySeqNo))
-      );
+    );
 
     this.beginnerCourses$ = courses$
       .pipe(
