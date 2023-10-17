@@ -6,8 +6,7 @@
 
     <mat-tab label="Beginners">
       <courses-card-list
-        [courses]="beginnerCourses$ | async"
-        (coursesChanged)="loadCourses()">
+        [courses]="beginnerCourses$ | async">
       </courses-card-list>
     </mat-tab>
 

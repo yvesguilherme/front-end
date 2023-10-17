@@ -35,7 +35,7 @@ export class CoursesCardListComponent {
     dialogRef.afterClosed()
       .pipe(
         filter(value => !!value),
-        tap(() => this.coursesChanged.emit())
+        // tap(() => this.coursesChanged.emit())
     )
       .subscribe();
 
