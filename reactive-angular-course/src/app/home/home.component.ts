@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 import { Course } from '../model/course';
 
-import { CoursesStore } from '../services/courses.store';
+import { CoursesStore } from '../services/stores/courses.store';
 
 
 @Component({

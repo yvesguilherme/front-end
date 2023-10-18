@@ -5,7 +5,7 @@ import * as moment from 'moment';
 
 import { Course } from "../model/course";
 import { MessagesService } from '../messages/messages.service';
-import { CoursesStore } from '../services/courses.store';
+import { CoursesStore } from '../services/stores/courses.store';
 
 @Component({
   selector: 'course-dialog',

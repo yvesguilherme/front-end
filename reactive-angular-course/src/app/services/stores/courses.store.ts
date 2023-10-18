@@ -3,10 +3,10 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, throwError } from "rxjs";
 import { catchError, map, shareReplay, tap } from "rxjs/operators";
 
-import { Course, sortCoursesBySeqNo } from "../model/course";
+import { Course, sortCoursesBySeqNo } from "../../model/course";
 
-import { LoadingService } from "../loading/loading.service";
-import { MessagesService } from "../messages/messages.service";
+import { LoadingService } from "../../loading/loading.service";
+import { MessagesService } from "../../messages/messages.service";
 
 @Injectable({
   providedIn: 'root'
