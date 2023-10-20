@@ -26,13 +26,22 @@ import { CoursesService } from '../services/courses.service';
 export class SearchLessonsComponent implements OnInit {
 
   searchResults$: Observable<Lesson[]>;
+  activeLesson: Lesson;
 
   constructor(private coursesService: CoursesService) { }
 
   ngOnInit() { }
 
-  onSearch(search: string) {
+  onSearch(search: string): void {
     this.searchResults$ = this.coursesService.searchLessons(search);
+  }
+
+  openLesson(lesson: Lesson): void {
+    this.activeLesson = lesson;
+  }
+
+  onBackToSearch(): void {
+    this.activeLesson = null;
   }
 
 }
