@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
 import { Course } from '../model/course';
+import { Lesson } from '../model/lesson';
 
 @Injectable({
   providedIn: 'root'
@@ -23,10 +24,23 @@ export class CoursesService {
   }
   saveCourse(courseId: string, changes: Partial<Course>): Observable<any> {
     console.log(`Changes: `, changes);
-    
+
     return this.httClient
       .put(`/api/courses/${courseId}`, changes)
       .pipe(
+        shareReplay()
+      );
+  }
+
+  searchLessons(search: string): Observable<Lesson[]> {
+    return this.httClient.get<Lesson[]>(`/api/lessons`, {
+      params: {
+        filter: search,
+        pageSize: 100,
+      }
+    })
+      .pipe(
+        map(response => response['payload']),
         shareReplay()
       );
   }
