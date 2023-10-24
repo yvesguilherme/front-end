@@ -23,6 +23,9 @@
             "styles": [
               "src/styles.scss"
             ],
+            "allowedCommonJsDependencies": [
+              "moment"
+            ],
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
