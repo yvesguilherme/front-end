@@ -15,13 +15,17 @@ import { AuthModule } from './auth/auth.module';
 import { AppComponent } from './app.component';
 
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers, metaReducers } from './reducers';
+
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   {
     path: 'courses',
-    loadChildren: () => import('./courses/courses.module').then(m => m.CoursesModule)
+    loadChildren: () => import('./courses/courses.module').then(m => m.CoursesModule),
+    canActivate: [AuthGuard]
   },
   {
     path: '**',
@@ -47,6 +51,7 @@ const routes: Routes = [
     AuthModule.forRoot(),
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    EffectsModule.forRoot([]),
   ],
   bootstrap: [AppComponent]
 })
