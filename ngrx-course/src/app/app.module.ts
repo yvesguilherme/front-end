@@ -20,6 +20,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers, metaReducers } from './reducers';
 
 import { AuthGuard } from './auth/auth.guard';
+import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
 
 const routes: Routes = [
   {
@@ -52,6 +53,11 @@ const routes: Routes = [
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     EffectsModule.forRoot([]),
+    StoreRouterConnectingModule.forRoot({
+      stateKey: 'router',
+      routerState: RouterState.Minimal
+    }),
+    StoreRouterConnectingModule.forRoot()
   ],
   bootstrap: [AppComponent]
 })
