@@ -21,13 +21,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { HomeComponent } from './home/home.component';
 import { CoursesCardListComponent } from './courses-card-list/courses-card-list.component';
 import { EditCourseDialogComponent } from './edit-course-dialog/edit-course-dialog.component';
-import { CoursesHttpService } from './services/courses-http.service';
 import { CourseComponent } from './course/course.component';
+
+import { CoursesHttpService } from './services/courses-http.service';
+import { CourseResolver } from './course.resolver';
 
 export const coursesRoutes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: HomeComponent,
+    resolve: {
+      courses: CourseResolver
+    }
   },
   {
     path: ':courseUrl',
