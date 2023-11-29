@@ -25,6 +25,8 @@ import { CourseComponent } from './course/course.component';
 
 import { CoursesHttpService } from './services/courses-http.service';
 import { CourseResolver } from './course.resolver';
+import { EffectsModule } from '@ngrx/effects';
+import { CourseEffects } from './course.effects';
 
 export const coursesRoutes: Routes = [
   {
@@ -58,7 +60,8 @@ export const coursesRoutes: Routes = [
     MatDatepickerModule,
     MatMomentDateModule,
     ReactiveFormsModule,
-    RouterModule.forChild(coursesRoutes)
+    RouterModule.forChild(coursesRoutes),
+    EffectsModule.forFeature([CourseEffects])
   ],
   declarations: [
     HomeComponent,
