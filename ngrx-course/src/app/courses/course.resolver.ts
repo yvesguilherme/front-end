@@ -2,10 +2,11 @@ import { inject } from "@angular/core";
 import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from "@angular/router";
 import { Observable } from "rxjs";
 
-import { Store } from "@ngrx/store";
+import { Store, select } from "@ngrx/store";
 import { AppState } from "../reducers";
-import { finalize, first, tap } from "rxjs/operators";
+import { filter, finalize, first, tap } from "rxjs/operators";
 import { loadAllCourses } from "./course.actions";
+import { areCoursesLoaded } from "./course.selectors";
 
 
 export const CourseResolver: ResolveFn<any> =
@@ -15,12 +16,14 @@ export const CourseResolver: ResolveFn<any> =
 
     return courseStore
       .pipe(
-        tap(() => {
-          if (!loading) {
+        select(areCoursesLoaded),
+        tap(coursesLoaded => {
+          if (!loading && !coursesLoaded) {
             loading = true;
             courseStore.dispatch(loadAllCourses());
           }
         }),
+        filter(coursesLoaded => coursesLoaded),
         first(),
         finalize(() => loading = false)
       );

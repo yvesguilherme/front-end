@@ -17,8 +17,6 @@ import { selectAdvancedCourses, selectBeginnerCourses, selectPromoTotal } from '
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
-  loading$: Observable<boolean>;
   promoTotal$: Observable<number>;
   beginnerCourses$: Observable<Course[]>;
   advancedCourses$: Observable<Course[]>;
