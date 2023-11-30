@@ -51,11 +51,11 @@ export class EditCourseDialogComponent {
     }
   }
 
-  onClose() {
+  onClose(): void {
     this.dialogRef.close();
   }
 
-  onSave() {
+  onSave(): void {
     const course: Course = {
       ...this.course,
       ...this.form.value
@@ -67,7 +67,7 @@ export class EditCourseDialogComponent {
     };
 
     this.store.dispatch(courseUpdated({ update }));
-    this.dialogRef.close();
+    this.onClose();
   }
 
 
