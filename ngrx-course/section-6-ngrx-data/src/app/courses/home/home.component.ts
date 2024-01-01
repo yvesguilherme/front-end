@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { compareCourses, Course } from '../model/course';
 import { Observable } from "rxjs";
+import { map, shareReplay } from 'rxjs/operators';
+
+import { MatDialog } from '@angular/material/dialog';
+
+import { CourseEntityService } from '../services/course-entity.service';
+import { compareCourses, Course } from '../model/course';
 import { defaultDialogConfig } from '../shared/default-dialog-config';
 import { EditCourseDialogComponent } from '../edit-course-dialog/edit-course-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
-import { map, shareReplay } from 'rxjs/operators';
-import { CoursesHttpService } from '../services/courses-http.service';
-
 
 
 @Component({
@@ -17,54 +18,40 @@ import { CoursesHttpService } from '../services/courses-http.service';
 export class HomeComponent implements OnInit {
 
   promoTotal$: Observable<number>;
-
-  loading$: Observable<boolean>;
-
   beginnerCourses$: Observable<Course[]>;
-
   advancedCourses$: Observable<Course[]>;
-
 
   constructor(
     private dialog: MatDialog,
-    private coursesHttpService: CoursesHttpService) {
+    private courseEntityService: CourseEntityService
+  ) { }
 
-  }
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.reload();
   }
 
-  reload() {
-
-    const courses$ = this.coursesHttpService.findAllCourses()
-      .pipe(
-        map(courses => courses.sort(compareCourses)),
-        shareReplay()
-      );
-
-    this.loading$ = courses$.pipe(map(courses => !!courses));
-
-    this.beginnerCourses$ = courses$
+  reload(): void {
+    this.beginnerCourses$ = this.courseEntityService
+      .entities$
       .pipe(
         map(courses => courses.filter(course => course.category == 'BEGINNER'))
       );
 
 
-    this.advancedCourses$ = courses$
+    this.advancedCourses$ = this.courseEntityService
+      .entities$
       .pipe(
         map(courses => courses.filter(course => course.category == 'ADVANCED'))
       );
 
-    this.promoTotal$ = courses$
+    this.promoTotal$ = this.courseEntityService
+      .entities$
       .pipe(
         map(courses => courses.filter(course => course.promo).length)
       );
-
   }
 
-  onAddCourse() {
-
+  onAddCourse(): void {
     const dialogConfig = defaultDialogConfig();
 
     dialogConfig.data = {
@@ -73,8 +60,5 @@ export class HomeComponent implements OnInit {
     };
 
     this.dialog.open(EditCourseDialogComponent, dialogConfig);
-
   }
-
-
 }
