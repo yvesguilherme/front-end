@@ -1,17 +1,18 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { MatDialog } from "@angular/material/dialog";
 
 import { Course } from "../model/course";
 import { EditCourseDialogComponent } from "../edit-course-dialog/edit-course-dialog.component";
 import { defaultDialogConfig } from '../shared/default-dialog-config';
+import { CourseEntityService } from '../services/course-entity.service';
 
 @Component({
   selector: 'courses-card-list',
   templateUrl: './courses-card-list.component.html',
   styleUrls: ['./courses-card-list.component.css']
 })
-export class CoursesCardListComponent implements OnInit {
+export class CoursesCardListComponent {
 
   @Input()
   courses: Course[];
@@ -19,13 +20,14 @@ export class CoursesCardListComponent implements OnInit {
   @Output()
   courseChanged = new EventEmitter();
 
+  @Output() scrollPage = new EventEmitter();
+
   constructor(
-    private dialog: MatDialog) {
-  }
+    private dialog: MatDialog,
+    private courseEntityService: CourseEntityService
+  ) { }
 
-  ngOnInit() { }
-
-  editCourse(course: Course) {
+  editCourse(course: Course): void {
     const dialogConfig = defaultDialogConfig();
 
     dialogConfig.data = {
@@ -40,6 +42,9 @@ export class CoursesCardListComponent implements OnInit {
 
   }
 
-  onDeleteCourse(course: Course) { }
+  onDeleteCourse(course: Course): void {
+    this.courseEntityService.delete(course);
+    this.scrollPage.emit();
+  }
 
 }

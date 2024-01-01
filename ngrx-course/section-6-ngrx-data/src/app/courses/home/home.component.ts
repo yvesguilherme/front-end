@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit } from '@angular/core';
 import { Observable } from "rxjs";
 import { map, shareReplay } from 'rxjs/operators';
 
@@ -23,7 +23,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private courseEntityService: CourseEntityService
+    private courseEntityService: CourseEntityService,
+    private elementRef: ElementRef
   ) { }
 
   ngOnInit(): void {
@@ -49,6 +50,11 @@ export class HomeComponent implements OnInit {
       .pipe(
         map(courses => courses.filter(course => course.promo).length)
       );
+  }
+
+  scrollPage(): void {
+    const scrollTarget = this.elementRef.nativeElement;
+    scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   onAddCourse(): void {
