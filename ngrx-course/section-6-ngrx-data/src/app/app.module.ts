@@ -37,11 +37,11 @@ const routes: Routes = [
   }
 ];
 
-const entityMetadata: EntityMetadataMap = {
-  Course: {
+// const entityMetadata: EntityMetadataMap = {
+//   Course: {
 
-  }
-};
+//   }
+// };
 
 
 @NgModule({
@@ -83,7 +83,7 @@ const entityMetadata: EntityMetadataMap = {
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(private entityDefinitionService: EntityDefinitionService) {
-    this.entityDefinitionService.registerMetadataMap(entityMetadata);
-  }
+  // constructor(private entityDefinitionService: EntityDefinitionService) {
+  //   this.entityDefinitionService.registerMetadataMap(entityMetadata);
+  // }
 }
