@@ -1,0 +1,20 @@
+{
+  "private": true,
+  "name": "shared-ui",
+  "description": "Shared UI components",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rm -rf dist && tsc"
+  },
+  "keywords": [],
+  "author": "Yves Guilherme Lopo R. Lima",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "@types/react": "^18.2.73",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "react": "^18.2.0"
+  }
+}
